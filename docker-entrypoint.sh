@@ -1,7 +1,11 @@
 #!/bin/sh
 
 CONFIG=/etc/masakari/masakari.conf
+BINARY=${1:-masakari-api}
 
+
+
+ls -la /etc/masakari/
 test -f $CONFIG
 [ $? -ne 0 ] && echo "no $CONFIG found! Check, that you mounted volume here." && exit 1
-exec masakari-api
+exec $BINARY
