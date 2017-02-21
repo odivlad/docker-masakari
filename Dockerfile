@@ -9,16 +9,8 @@ RUN yum install epel-release -y && \
         python-devel \
         python-pip
 
-#RUN git clone https://github.com/openstack/masakari && \
-#    cd masakari && \
-#    pip install -r requirements.txt && \
-#    python setup.py build && \
-#    python setup.py install && \
-#    mkdir /etc/masakari/
-#    cp ./etc/masakari/api-paste.ini \
-#        ./etc/masakari/policy.json \
-#        /etc/masakari/
 RUN pip install masakari
+RUN pip install pymysql
 RUN yum remove -y \
         epel-release \
         gcc \
@@ -27,10 +19,10 @@ RUN yum remove -y \
         python-pip && \
     rm -rf /masakari/
 
-COPY docker-entrypoint.sh /
-
-ADD masakari.conf /etc/masakari/
+VOLUME /etc/masakari/
 
 EXPOSE 15868
 
-ENTRYPOINT ["/docker-entrypoint.sh"]
+ENTRYPOINT ["/bin/sh", "-c"]
+
+CMD ["masakari-api"]
