@@ -9,7 +9,10 @@ RUN yum install epel-release -y && \
         python-devel \
         python-pip
 
-RUN pip install masakari
+RUN git clone https://github.com/openstack/masakari && \
+        cd masakari && \
+        pip install -r requirements.txt && \
+        python setup.py install
 RUN pip install pymysql
 RUN yum remove -y \
         epel-release \
@@ -18,8 +21,6 @@ RUN yum remove -y \
         python-devel \
         python-pip && \
     rm -rf /masakari/
-
-VOLUME /etc/masakari/
 
 EXPOSE 15868
 
