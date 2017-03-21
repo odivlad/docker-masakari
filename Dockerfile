@@ -22,8 +22,6 @@ RUN yum remove -y \
         python-pip && \
     rm -rf /masakari/
 
-EXPOSE 15868
-
 ENTRYPOINT ["/bin/sh", "-c"]
 
-CMD ["masakari-api"]
+CMD ["masakari-engine"]
